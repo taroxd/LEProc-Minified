@@ -1,7 +1,9 @@
 LEProc Minified
 ===============
 
-A minified locale emulator with simple command-line support only.
+A minified locale emulator with command-line support only.
+
+Many features, including automatic update checks and various command-line options, are removed in order to keep the program as simple as possible.
 
 Original source code is available at <https://github.com/xupefei/Locale-Emulator>.
 
