@@ -104,14 +104,14 @@ namespace LEProc
             }
         }
 
-        public static bool CheckCoreDLLs()
+        static bool CheckCoreDLLs()
         {
             string[] dlls = { "LoaderDll.dll", "LocaleEmulator.dll" };
             var dirName = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             return dlls.All(dll => File.Exists(Path.Combine(dirName, dll)));
         }
 
-        public static string EnsureValidPath(string path)
+        static string EnsureValidPath(string path)
         {
             if (!String.Equals(Path.GetExtension(path), ".exe", StringComparison.OrdinalIgnoreCase))
             {
