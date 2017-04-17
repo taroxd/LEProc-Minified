@@ -19,6 +19,7 @@ In the original version, LEProc will start the associated program for you.
 The error is suppressed in the original version.
 4. The current directory will remain unchanged.  
 In the original version, it is changed to the folder containing `path`.
+5. Exit code will not be zero when the program is not successfully launched.
 
 ## Build ##
 This project can be built with Microsoft Visual Studio 2017.

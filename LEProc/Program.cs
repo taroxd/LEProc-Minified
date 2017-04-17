@@ -33,13 +33,13 @@ namespace LEProc
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
 
-                return;
+                Environment.Exit(1);
             }
 
             if (args.Length == 0)
             {
                 MessageBox.Show("Usage: LEProc.exe path [args]", "LEProc");
-                return;
+                Environment.Exit(1);
             }
 
             var path = EnsureValidPath(args[0]);
@@ -51,7 +51,7 @@ namespace LEProc
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
                     );
-                return;
+                Environment.Exit(1);
             }
 
             var commandLine = path;
@@ -97,13 +97,15 @@ namespace LEProc
                     $"Error Code: {Convert.ToString(ret, 16).ToUpper()}\r\n"
                     + $"Command: {commandLine}",
                     "LEProc");
+                Environment.Exit((int)ret);
             }
         }
 
         public static bool CheckCoreDLLs()
         {
             string[] dlls = { "LoaderDll.dll", "LocaleEmulator.dll" };
-            return dlls.All(dll => File.Exists(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), dll)));
+            var dirName = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            return dlls.All(dll => File.Exists(Path.Combine(dirName, dll)));
         }
 
         public static string EnsureValidPath(string path)
