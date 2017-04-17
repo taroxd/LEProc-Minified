@@ -20,6 +20,9 @@ The error is suppressed in the original version.
 4. The current directory will remain unchanged.  
 In the original version, it is changed to the folder containing `path`.
 
+## Build ##
+This project can be built with Microsoft Visual Studio 2017.
+
 ## License ##
 
 ![enter image description here](http://www.gnu.org/graphics/lgplv3-147x51.png)
