@@ -25,6 +25,6 @@ This project can be built with Microsoft Visual Studio 2017.
 
 ## License ##
 
-![enter image description here](http://www.gnu.org/graphics/lgplv3-147x51.png)
+![LGPL V3](http://www.gnu.org/graphics/lgplv3-147x51.png)
 
 [LGPL-3.0](https://opensource.org/licenses/LGPL-3.0).
