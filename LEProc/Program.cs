@@ -10,17 +10,12 @@ namespace LEProc
 {
     internal static class Program
     {
-    
-        const string LOCATION = "ja-JP";
-        const string TIMEZONE = "Tokyo Standard Time";
-
         /// <summary>
         ///     The main entry point for the application.
         /// </summary>
         [STAThread]
         private static void Main(string[] args)
         {
-
             if (!CheckCoreDLLs())
             {
                 MessageBox.Show(
@@ -32,7 +27,6 @@ namespace LEProc
                     "LEProc",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
-
                 Environment.Exit(1);
             }
 
@@ -54,17 +48,25 @@ namespace LEProc
                 Environment.Exit(1);
             }
 
-            var commandLine = path;
-
-            if (args.Length > 1)
+            string commandLine = null;
+            if (args.Length == 1)
             {
-                commandLine += " " + String.Join(" ", args.Skip(1));
+                commandLine = path;
+            }
+            else
+            {
+                args[0] = path;
+                commandLine = String.Join(" ", args);
             }
 
-            var cultureInfo = CultureInfo.GetCultureInfo(LOCATION);
+            var cultureInfo = CultureInfo.GetCultureInfo("ja-JP");
             var textInfo = cultureInfo.TextInfo;
 
-            var registries = new RegistryEntriesLoader().GetRegistryEntries(false);
+            var registries = Assembly.GetExecutingAssembly().GetTypes()
+                .Where(type => type.Namespace.StartsWith("LEProc.RegistryEntries"))
+                .Select(type => (IRegistryEntry)Activator.CreateInstance(type))
+                .Where(entry => !entry.IsAdvanced)
+                .ToArray();
 
             var l = new LoaderWrapper
             {
@@ -74,28 +76,29 @@ namespace LEProc
                 AnsiCodePage = (uint)textInfo.ANSICodePage,
                 OemCodePage = (uint)textInfo.OEMCodePage,
                 LocaleID = (uint)textInfo.LCID,
-                DefaultCharset = 128,
+                DefaultCharset = 128,  // SHIFT-JIS
                 HookUILanguageAPI = 0,
-                Timezone = TIMEZONE,
-                NumberOfRegistryRedirectionEntries = registries?.Length ?? 0,
+                Timezone = "Tokyo Standard Time",
+                NumberOfRegistryRedirectionEntries = registries.Length,
                 DebugMode = false
             };
 
-            registries?.ToList()
-                .ForEach(
-                    item =>
-                        l.AddRegistryRedirectEntry(item.Root,
-                            item.Key,
-                            item.Name,
-                            item.Type,
-                            item.GetValue(cultureInfo)));
+            foreach (var item in registries)
+            {
+                l.AddRegistryRedirectEntry(
+                    item.Root,
+                    item.Key,
+                    item.Name,
+                    item.Type,
+                    item.GetValue(cultureInfo));
+            }
 
-            var ret = l.Start();
+            uint ret = l.Start();
             if (ret != 0)
             {
                 MessageBox.Show(
-                    $"Error Code: {Convert.ToString(ret, 16).ToUpper()}\r\n"
-                    + $"Command: {commandLine}",
+                    $"Error Code: {Convert.ToString(ret, 16).ToUpper()}\r\n" +
+                    $"Command: {commandLine}",
                     "LEProc");
                 Environment.Exit((int)ret);
             }
