@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using LECommonLibrary;
 
 namespace LEProc.RegistryEntries.HKLM.System.CurrentControlSet.Control.Nls.Codepage
 {
