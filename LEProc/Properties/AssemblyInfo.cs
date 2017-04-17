@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("LEProc")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Paddy Xu")]
+[assembly: AssemblyCompany("taroxd")]
 [assembly: AssemblyProduct("LEProc")]
-[assembly: AssemblyCopyright("Copyright © Paddy Xu 2014")]
+[assembly: AssemblyCopyright("Copyright © taroxd 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
