@@ -60,7 +60,7 @@ namespace LEProc
             }
 
             var cultureInfo = CultureInfo.GetCultureInfo("ja-JP");
-            var textInfo = cultureInfo.TextInfo;
+            // var textInfo = cultureInfo.TextInfo;
 
             var registries = Assembly.GetExecutingAssembly().GetTypes()
                 .Where(type => type.Namespace.StartsWith("LEProc.RegistryEntries"))
@@ -68,17 +68,15 @@ namespace LEProc
                 .Where(entry => !entry.IsAdvanced)
                 .ToArray();
 
-            var l = new LoaderWrapper
+            // Use default value
+            var l = new LoaderWrapper(path, commandLine, Environment.CurrentDirectory)
             {
-                ApplicationName = path,
-                CommandLine = commandLine,
-                CurrentDirectory = Environment.CurrentDirectory,
-                AnsiCodePage = (uint)textInfo.ANSICodePage,
-                OemCodePage = (uint)textInfo.OEMCodePage,
-                LocaleID = (uint)textInfo.LCID,
-                DefaultCharset = 128,  // SHIFT-JIS
-                HookUILanguageAPI = 0,
-                Timezone = "Tokyo Standard Time",
+                // AnsiCodePage = (uint)textInfo.ANSICodePage,
+                // OemCodePage = (uint)textInfo.OEMCodePage,
+                // LocaleID = (uint)textInfo.LCID,
+                // DefaultCharset = 128,  // SHIFT-JIS
+                // HookUILanguageAPI = 0,
+                // Timezone = "Tokyo Standard Time",
                 NumberOfRegistryRedirectionEntries = registries.Length,
                 DebugMode = false
             };
