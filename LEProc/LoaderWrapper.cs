@@ -179,7 +179,7 @@ namespace LEProc
             var locLEB = Marshal.AllocHGlobal(newLEB.Length);
             Marshal.Copy(newLEB, 0, locLEB, newLEB.Length);
 
-            uint ret = LeCreateProcess(locLEB,
+            var ret = LeCreateProcess(locLEB,
                                    ApplicationName,
                                    CommandLine,
                                    CurrentDirectory,
