@@ -1,4 +1,6 @@
-﻿using System;
+﻿// #define ADVANCED_REDIRECTION
+
+using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -62,11 +64,20 @@ namespace LEProc
             var cultureInfo = CultureInfo.GetCultureInfo("ja-JP");
             // var textInfo = cultureInfo.TextInfo;
 
-            var registries = Assembly.GetExecutingAssembly().GetTypes()
-                .Where(type => type.Namespace.StartsWith("LEProc.RegistryEntries"))
-                .Select(type => (IRegistryEntry)Activator.CreateInstance(type))
-                .Where(entry => !entry.IsAdvanced)
-                .ToArray();
+            var registries = new[]
+            {
+                new string[] { "HKEY_LOCAL_MACHINE", @"System\CurrentControlSet\Control\Nls\CodePage", "InstallLanguage", "REG_SZ", "1041" },
+                new string[] { "HKEY_LOCAL_MACHINE", @"System\CurrentControlSet\Control\Nls\CodePage", "Default", "REG_SZ", "1041" },
+                new string[] { "HKEY_LOCAL_MACHINE", @"System\CurrentControlSet\Control\Nls\CodePage", "OEMCP", "REG_SZ", "932" },
+                new string[] { "HKEY_LOCAL_MACHINE", @"System\CurrentControlSet\Control\Nls\CodePage", "ACP", "REG_SZ", "932" }
+#if ADVANCED_REDIRECTION
+                ,
+                new string[] { "HKEY_CURRENT_USER", @"Control Panel\International", "Locale", "REG_SZ", "00000411" },
+                new string[] { "HKEY_CURRENT_USER", @"Control Panel\International", "LocaleName", "REG_SZ", "ja-JP" },
+                new string[] { "HKEY_CURRENT_USER", @"Control Panel\Desktop", "PreferredUILanguages", "REG_MULTI_SZ", "ja-JP" },
+                new string[] { "HKEY_CURRENT_USER", @"Control Panel\Desktop\MuiCached", "MachinePreferredUILanguages", "REG_MULTI_SZ", "ja-JP" }
+#endif
+            };
 
             // Use default value
             var l = new LoaderWrapper(path, commandLine, Environment.CurrentDirectory)
@@ -84,11 +95,11 @@ namespace LEProc
             foreach (var item in registries)
             {
                 l.AddRegistryRedirectEntry(
-                    item.Root,
-                    item.Key,
-                    item.Name,
-                    item.Type,
-                    item.GetValue(cultureInfo));
+                    item[0],
+                    item[1],
+                    item[2],
+                    item[3],
+                    item[4]);
             }
 
             uint ret = l.Start();
