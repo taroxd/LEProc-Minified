@@ -12,13 +12,15 @@ namespace LEProc
 {
     internal static class Program
     {
+        static readonly string rootDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
         /// <summary>
         ///     The main entry point for the application.
         /// </summary>
         [STAThread]
         private static void Main(string[] args)
         {
-            if (!CheckCoreDLLs())
+            if (!(DLLExists("LoaderDll.dll") && DLLExists("LocaleEmulator.dll")))
             {
                 MessageBox.Show(
                     "Some of the core Dlls are missing.\r\n" +
@@ -113,19 +115,12 @@ namespace LEProc
             }
         }
 
-        static bool CheckCoreDLLs()
+        private static bool DLLExists(string dllName)
         {
-            string rootDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-
-            bool Exists(string dll)
-            {
-                return File.Exists(Path.Combine(rootDirectory, dll));
-            }
-
-            return Exists("LoaderDll.dll") && Exists("LocaleEmulator.dll");
+            return File.Exists(Path.Combine(rootDirectory, dllName));
         }
 
-        static string EnsureValidPath(string path)
+        private static string EnsureValidPath(string path)
         {
             if (!String.Equals(Path.GetExtension(path), ".exe", StringComparison.OrdinalIgnoreCase))
             {
