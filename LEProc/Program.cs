@@ -47,8 +47,7 @@ namespace LEProc
                 MessageBox.Show($"{args[0]}: No such file or directory",
                     "LEProc",
                     MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                    );
+                    MessageBoxIcon.Error);
                 Environment.Exit(1);
             }
 
@@ -63,7 +62,7 @@ namespace LEProc
                 commandLine = String.Join(" ", args);
             }
 
-            var cultureInfo = CultureInfo.GetCultureInfo("ja-JP");
+            // var cultureInfo = CultureInfo.GetCultureInfo("ja-JP");
             // var textInfo = cultureInfo.TextInfo;
 
             var registries = new[]
