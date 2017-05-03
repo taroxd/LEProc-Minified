@@ -3,7 +3,11 @@ LEProc Minified
 
 A minified locale emulator with command-line support only.
 
+This program was made to be a command-line utility. Therefore, it may be a good idea to add `LEProc.exe` to the environment variable `PATH`.
+
 Many features, including automatic update checks and Locale Emulator Profile, are removed in order to keep the program as simple as possible.
+
+If you want these good features, you are always welcomed to use the original version. And, of course, you can keep both versions on your PC as I do!
 
 Original source code is available at <https://github.com/xupefei/Locale-Emulator>.
 
@@ -20,6 +24,7 @@ The error is suppressed in the original version.
 4. The current directory will remain unchanged.  
 In the original version, it is changed to the folder containing `path`.
 5. Exit code will not be zero when the program is not successfully launched.
+6. It is not guaranteed, though possible, that drag & drop onto the LEProc.exe will work as expected.
 
 ## Build ##
 This project can be built with Microsoft Visual Studio 2017.
