@@ -87,7 +87,11 @@ namespace LEProc
                 // OemCodePage = (uint)textInfo.OEMCodePage,
                 // LocaleID = (uint)textInfo.LCID,
                 // DefaultCharset = 128,  // SHIFT-JIS
+#if ADVANCED_REDIRECTION
+                HookUILanguageAPI = 1,
+#else
                 // HookUILanguageAPI = 0,
+#endif
                 // Timezone = "Tokyo Standard Time",
                 NumberOfRegistryRedirectionEntries = registries.Length,
                 DebugMode = false
