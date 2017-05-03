@@ -51,14 +51,10 @@ namespace LEProc
                 Environment.Exit(1);
             }
 
-            string commandLine = null;
-            if (args.Length == 1)
+            string commandLine = $"\"{path}\"";
+            if (args.Length > 1)
             {
-                commandLine = path;
-            }
-            else
-            {
-                args[0] = path;
+                args[0] = commandLine;
                 commandLine = String.Join(" ", args);
             }
 
