@@ -44,14 +44,14 @@ namespace LEProc
 
             if (path == null)
             {
-                MessageBox.Show($"{args[0]}: No such file or directory",
+                MessageBox.Show(args[0] + ": No such file or directory",
                     "LEProc",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                 Environment.Exit(1);
             }
 
-            string commandLine = $"\"{path}\"";
+            string commandLine = "\"" + path + "\"";
             if (args.Length > 1)
             {
                 args[0] = commandLine;
@@ -107,8 +107,8 @@ namespace LEProc
             if (ret != 0)
             {
                 MessageBox.Show(
-                    $"Error Code: {Convert.ToString(ret, 16).ToUpper()}\r\n" +
-                    $"Command: {commandLine}",
+                    $"Error: 0x{ret:X8}\r\n" +
+                    "Command: " + commandLine,
                     "LEProc");
                 Environment.Exit((int)ret);
             }
