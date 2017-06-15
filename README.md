@@ -25,6 +25,7 @@ The error is suppressed in the original version.
 In the original version, it is changed to the folder containing `path`.
 5. Exit code will not be zero when the program is not successfully launched.
 6. It is not guaranteed, though possible, that drag & drop onto the LEProc.exe will work as expected.
+7. The program will not attempt to elevate itself when something unexpected occurs.
 
 ## Build ##
 This project can be built with Microsoft Visual Studio 2017.
