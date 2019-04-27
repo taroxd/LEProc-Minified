@@ -28,7 +28,7 @@ In the original version, it is changed to the folder containing `path`.
 7. The program will not attempt to elevate itself when something unexpected occurs.
 
 ## Build ##
-This project can be built with Microsoft Visual Studio 2017.
+This project can be built with Microsoft Visual Studio 2017 or later versions.
 
 ## License ##
 
